@@ -16,6 +16,7 @@ import ManageStudents from './components/ManageStudents'; // Import the ManageSt
 import GenerateStudentReport from './components/GenerateStudentReport'; // Import the GenerateStudentReport component
 import TermsAndConditions from './components/TermsAndConditions'; // Import the TermsAndConditions component
 import PrivacyPolicy from './components/PrivacyPolicy'; // Import the PrivacyPolicy component
+import EmployerRegistration from './components/EmployerRegistration'; // Import the EmployerRegistration component
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
@@ -36,6 +37,9 @@ function App() {
 
           {/* Student Registration (after selecting "student") */}
           <Route path="/student-registration" element={<StudentRegistration />} />
+
+          {/* Employer Registration (after selecting "employer") */}
+          <Route path="/employer-registration" element={<EmployerRegistration />} />
 
           {/* System Admin Subscription Page (after selecting "systemAdmin") */}
           <Route path="/admin-subscription" element={<Subscription />} />

@@ -63,6 +63,9 @@ const Login = () => {
           case 'system admin':
             navigate('/admin-subscription', { state: registrationState });
             break;
+          case 'employer':
+            navigate('/employer-registration', { state: registrationState });
+            break;
           default:
             navigate('/select-role');
         }
@@ -173,7 +176,7 @@ const Login = () => {
               >
                 <option value="">Choose your role</option>
                 <option value="student">Student</option>
-                {/* <option value="employer">Employer</option> */}
+                <option value="employer">Employer</option>
                 <option value="system admin">System Admin</option>
               </select>
             </div>
@@ -207,7 +210,7 @@ const Login = () => {
               >
                 <option value="">Choose your role</option>
                 <option value="student">Student</option>
-                {/* <option value="employer">Employer</option> */}
+                <option value="employer">Employer</option>
                 <option value="system admin">System Admin</option>
               </select>
               <button 

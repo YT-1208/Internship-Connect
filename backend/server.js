@@ -5,6 +5,7 @@ const authRoutes = require('./routes/auth');
 const studentRoutes = require('./routes/students');
 const systemAdminRoutes = require('./routes/systemAdmin');
 const contactRoutes = require('./routes/contact'); // Import the contact route
+const employerRoutes = require('./routes/employer'); // Import the employer route
 require('dotenv').config();
 
 // Initialize app
@@ -31,6 +32,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/students', studentRoutes);
 app.use('/api/admin', systemAdminRoutes);
 app.use('/api/contact', contactRoutes); // Use the contact route
+app.use('/api/employers', employerRoutes); // Use the employer route
 
 // Database connection test
 const testDbConnection = async () => {

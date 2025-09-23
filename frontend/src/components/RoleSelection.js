@@ -16,7 +16,7 @@ const RoleSelection = () => {
         navigate('/admin-subscription'); // Admin first goes to subscription
         break;
       case 'employer':
-        alert('Employer registration coming soon!');
+        navigate('/employer-registration'); // Direct to employer registration
         break;
       default:
         alert('Please select a valid role');
@@ -41,12 +41,12 @@ const RoleSelection = () => {
           System Admin
         </button>
 
-        {/* <button 
+        <button 
           className="role-btn"
           onClick={() => handleRoleSelect('employer')}
         >
           Employer
-        </button> */}
+        </button>
       </div>
     </div>
   );
