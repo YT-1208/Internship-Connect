@@ -1,0 +1,127 @@
+/* ManageStudents.css */
+
+.manage-students-page {
+    background-color: #fff; /* Set a base background color */
+}
+
+.manage-students-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+/* University Intro Section - Centered */
+.university-intro {
+    text-align: center; /* Center align all content */
+    padding: 2rem;
+    background-color: #f8f0ff; /* Homepage theme color */
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.university-logo {
+    max-height: 100px;
+    margin-bottom: 1rem;
+}
+
+.university-intro h2 {
+    margin-bottom: 0.5rem;
+}
+
+.university-intro p {
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto; /* Center the paragraph text block */
+}
+
+/* Student List Sections */
+.students-list-section {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.students-list-section h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #f0e8ff;
+    padding-bottom: 0.5rem;
+}
+
+.students-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.students-table th, .students-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.students-table th {
+    background-color: #f8f0ff; /* Homepage theme color */
+}
+
+.students-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Button Styles */
+.students-table .btn {
+    margin-right: 8px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+}
+
+.verify-btn {
+    background-color: #28a745 !important; /* Green */
+    border-color: #28a745 !important;
+    color: #fff !important;
+}
+
+.verify-btn:hover {
+    background-color: #218838 !important;
+    border-color: #1e7e34 !important;
+}
+
+.remove-btn {
+    background-color: #dc3545 !important; /* Red */
+    border-color: #dc3545 !important;
+    color: #fff !important;
+}
+
+.remove-btn:hover {
+    background-color: #c82333 !important;
+    border-color: #bd2130 !important;
+}
+
+.view-btn {
+    background-color: #6c2bd9 !important; /* Purple theme color */
+    border-color: #6c2bd9 !important;
+    color: #fff !important;
+}
+
+.view-btn:hover {
+    background-color: #5a23b1 !important;
+    border-color: #5320a2 !important;
+}
+
+/* Generate Report Button Container */
+.generate-report-button-container {
+    text-align: center; /* Center the button */
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: #f8f0ff; /* Homepage theme color */
+    border-radius: 8px;
+}
+
+.loading-container, .error-container {
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.2rem;
+}

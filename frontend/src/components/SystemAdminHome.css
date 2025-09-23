@@ -1,0 +1,193 @@
+/* SystemAdminHome.css */
+.system-admin-home {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  background-color: #fff;
+}
+
+/* Hero Section Styles */
+.hero {
+  position: relative; /* Needed for background and content positioning */
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center;
+  padding: 4rem;
+  text-align: center;
+  overflow: hidden; /* Ensures images don't bleed out */
+  min-height: 400px; /* Give the hero section a good height */
+}
+
+/* Add a dark overlay for text readability */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1; /* Overlay should be above images but below content */
+}
+
+.hero-background-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the entire area without distortion */
+  z-index: 0; /* Background images are at the very back */
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.hero-background-img.active {
+  opacity: 1;
+}
+
+.hero-content {
+  position: relative; /* Ensure content is on top of the overlay */
+  z-index: 2;
+  flex: 1;
+  max-width: 800px; /* Control the max width of the content */
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  color: #fff; /* White text for contrast */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow */
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #f0f0f0; /* Lighter text color */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Add text shadow */
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center; /* Center the search bar */
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.search-input,
+.location-input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  width: 220px; /* Slightly wider search inputs */
+}
+
+.suggestions {
+  font-size: 0.9rem;
+  color: #ddd; /* Lighter suggestion text */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Remove the old illustration styles */
+
+/* Featured Opportunities Styles */
+.featured-opportunities {
+  padding: 2rem 4rem;
+  text-align: center;
+}
+
+.featured-opportunities h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.featured-opportunities p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.opportunities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.opportunity-card {
+  background-color: #f8f0ff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.opportunity-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.availability {
+  display: inline-block;
+  background-color: #5cb85c;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.salary {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.company-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.company-logo {
+  height: 30px;
+  margin-right: 10px;
+}
+
+.applicants {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.view-all-link {
+  color: #6c2bd9;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Top Companies Styles */
+.top-companies {
+  padding: 2rem 4rem;
+  text-align: center;
+}
+
+.top-companies h3 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.companies-grid {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.company-logo {
+  height: 80px;
+  margin: 0 1rem;
+}

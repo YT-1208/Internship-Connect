@@ -1,0 +1,90 @@
+/* Contact.css */
+
+.contact-page {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background-color: #fff;
+}
+
+.contact-logo {
+  display: block;
+  margin: 0 auto 150px;
+  height: 250px;
+}
+
+.contact-container h1 {
+  font-size: 36px;
+  font-weight: bold;
+  color: #6c2bd9;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.contact-intro {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.faq-section, .contact-form-section {
+  margin-bottom: 40px;
+}
+
+.faq-section h2, .contact-form-section h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #6c2bd9;
+  padding-bottom: 10px;
+}
+
+.faq-item {
+  margin-bottom: 20px;
+}
+
+.faq-item h4 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #6c2bd9;
+  margin-bottom: 10px;
+}
+
+.faq-item p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.contact-form {
+  background-color: #f3eaff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  background-color: #fff;
+  color: #333;
+}

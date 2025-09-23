@@ -1,0 +1,111 @@
+/* StudentRegistration.css */
+.student-registration-page {
+  background-color: #f8f0ff; /* Light purple theme background */
+  min-height: 100vh;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.student-reg-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 3rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.student-reg-container h1 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.reg-form .form-group {
+  margin-bottom: 1.2rem;
+}
+
+.reg-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.reg-form input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.reg-form small {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.register-btn {
+  width: 100%;
+  padding: 0.85rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #6c2bd9; /* Theme color */
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.register-btn:hover {
+  background-color: #5a23b1; /* Darker theme color */
+}
+
+.error-message {
+  color: #dc3545;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Terms and Conditions Group */
+.terms-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1.5rem;
+}
+
+.terms-group input[type="checkbox"] {
+  width: auto; /* Override default width */
+  margin: 0;
+}
+
+.terms-group label {
+  font-weight: normal;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0; /* Override default margin */
+}
+
+.terms-link {
+  color: #6c2bd9;
+  text-decoration: none;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+}
