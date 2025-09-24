@@ -36,6 +36,7 @@ const EmployerRegistration = () => {
     return (
         <div className="employer-registration-container">
             <div className="employer-registration-card">
+                <button onClick={() => navigate(-1)} className="back-button">Back</button>
                 <h2>Employer Registration</h2>
                 <p>Create your employer account to connect with talented students.</p>
 

@@ -22,13 +22,17 @@ const GenerateStudentReport = () => {
     useEffect(() => {
         const fetchData = async () => {
             const user = JSON.parse(localStorage.getItem('user'));
-            if (!user || !user.user_id) {
+            const token = localStorage.getItem('token');
+
+            if (!user || !user.user_id || !token) {
                 navigate('/login');
                 return;
             }
 
+            const headers = { 'Authorization': `Bearer ${token}` };
+
             try {
-                const adminResponse = await fetch(`http://localhost:5000/api/admin/${user.user_id}`);
+                const adminResponse = await fetch(`http://localhost:5000/api/admin/${user.user_id}`, { headers });
                 const adminData = await adminResponse.json();
 
                 if (!adminData.success || !adminData.data.university_id) {
@@ -40,7 +44,7 @@ const GenerateStudentReport = () => {
                 setUniversityName(adminData.data.universityName || 'University');
                 const universityId = adminData.data.university_id;
 
-                const studentsResponse = await fetch(`http://localhost:5000/api/admin/students/${universityId}`);
+                const studentsResponse = await fetch(`http://localhost:5000/api/admin/students/${universityId}`, { headers });
                 const studentsData = await studentsResponse.json();
 
                 if (studentsData.success) {

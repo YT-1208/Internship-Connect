@@ -30,13 +30,19 @@ const ManageStudents = () => {
   useEffect(() => {
     const fetchManageStudentsData = async () => {
       const user = JSON.parse(localStorage.getItem('user'));
-      if (!user || !user.user_id) {
+      const token = localStorage.getItem('token');
+
+      if (!user || !user.user_id || !token) {
         navigate('/login');
         return;
       }
 
+      const headers = {
+        'Authorization': `Bearer ${token}`
+      };
+
       try {
-        const adminResponse = await fetch(`http://localhost:5000/api/admin/${user.user_id}`);
+        const adminResponse = await fetch(`http://localhost:5000/api/admin/${user.user_id}`, { headers });
         const adminData = await adminResponse.json();
 
         if (!adminData.success || !adminData.data.university_id) {
@@ -52,7 +58,7 @@ const ManageStudents = () => {
 
         const universityId = adminData.data.university_id;
 
-        const uniResponse = await fetch(`http://localhost:5000/api/admin/university/${universityId}`);
+        const uniResponse = await fetch(`http://localhost:5000/api/admin/university/${universityId}`, { headers });
         const uniData = await uniResponse.json();
 
         if (uniData.success) {
@@ -61,7 +67,7 @@ const ManageStudents = () => {
           setError(uniData.message || 'Failed to fetch university details.');
         }
 
-        const studentsResponse = await fetch(`http://localhost:5000/api/admin/students/${universityId}`);
+        const studentsResponse = await fetch(`http://localhost:5000/api/admin/students/${universityId}`, { headers });
         const studentsData = await studentsResponse.json();
 
         if (studentsData.success) {
@@ -153,8 +159,12 @@ const ManageStudents = () => {
   const handleVerifyStudent = async (studentId) => {
     if (window.confirm('Are you sure you want to verify this student?')) {
       try {
+        const token = localStorage.getItem('token');
+        const headers = { 'Authorization': `Bearer ${token}` };
+
         const response = await fetch(`http://localhost:5000/api/admin/student/verify/${studentId}`, {
           method: 'PUT',
+          headers
         });
         const data = await response.json();
         if (data.success) {
@@ -164,6 +174,7 @@ const ManageStudents = () => {
           setPendingStudents(prevPending => prevPending.filter(student => student.student_id !== studentId));
           const notificationResponse = await fetch(`http://localhost:5000/api/admin/student/verify/notify/${studentId}`, {
             method: 'GET',
+            headers
           });
           console.log('Notification response:', await notificationResponse.json());
         } else {
@@ -179,13 +190,18 @@ const ManageStudents = () => {
   const handleRemoveStudent = async (studentId) => {
     if (window.confirm('Are you sure you want to remove this student? This action cannot be undone.')) {
       try {
+        const token = localStorage.getItem('token');
+        const headers = { 'Authorization': `Bearer ${token}` };
+
         const notificationResponse = await fetch(`http://localhost:5000/api/admin/student/remove/notify/${studentId}`, {
           method: 'GET',
+          headers
         });
         console.log('Notification response:', await notificationResponse.json());
 
         const response = await fetch(`http://localhost:5000/api/admin/student/remove/${studentId}`, {
           method: 'DELETE',
+          headers
         });
         const data = await response.json();
         if (data.success) {

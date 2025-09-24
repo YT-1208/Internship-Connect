@@ -1,6 +1,7 @@
 
 const db = require('../models/db');
 const bcrypt = require('bcryptjs');
+const { v4: uuidv4 } = require('uuid'); // Import uuid
 
 // Register a new employer
 exports.registerEmployer = async (req, res) => {
@@ -18,15 +19,18 @@ exports.registerEmployer = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
+        // Generate UUIDs for user_id and company_id
+        const userId = uuidv4();
+        const companyId = uuidv4();
+
         // Start a transaction
         await db.beginTransaction();
 
         // Insert into users table
-        const [newUser] = await db.query('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', [username, hashedPassword, 'employer']);
-        const userId = newUser.insertId;
+        await db.query('INSERT INTO users (user_id, username, password, role) VALUES (?, ?, ?, ?)', [userId, username, hashedPassword, 'employer']);
 
         // Insert into employers table
-        await db.query('INSERT INTO employers (user_id, companyName, companyEmail, companyPhone) VALUES (?, ?, ?, ?)', [userId, companyName, companyEmail, companyPhone]);
+        await db.query('INSERT INTO employers (company_id, user_id, companyName, companyEmail, companyPhone) VALUES (?, ?, ?, ?, ?)', [companyId, userId, companyName, companyEmail, companyPhone]);
 
         // Commit the transaction
         await db.commit();

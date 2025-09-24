@@ -11,9 +11,15 @@ const Contact = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       const user = JSON.parse(localStorage.getItem('user'));
-      if (user && user.user_id) {
+      const token = localStorage.getItem('token');
+
+      if (user && user.user_id && token) {
         try {
-          const response = await fetch(`http://localhost:5000/api/admin/${user.user_id}`);
+          const response = await fetch(`http://localhost:5000/api/admin/${user.user_id}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
           const data = await response.json();
           if (data.success) {
             setUserName(data.data.universityName);
@@ -39,10 +45,10 @@ const Contact = () => {
       });
       const data = await response.json();
       if (data.success) {
-        alert('Your message has been sent successfully!');
+        alert('Done Submission');
         setMessage('');
       } else {
-        alert('Failed to send message. Please try again later.');
+        alert(data.message || 'Failed to send message. Please try again later.');
       }
     } catch (error) {
       console.error('Error sending message:', error);

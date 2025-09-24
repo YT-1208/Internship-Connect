@@ -42,12 +42,13 @@ const RoleSelection = () => {
         </button>
 
         <button 
-          className="role-btn"
+          className="role-btn" 
           onClick={() => handleRoleSelect('employer')}
         >
           Employer
         </button>
       </div>
+      <button onClick={() => navigate('/login')} className="back-button">Back to Login</button>
     </div>
   );
 };

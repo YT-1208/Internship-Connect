@@ -69,6 +69,7 @@ const StudentRegistration = () => {
   return (
     <div className="student-registration-page">
       <div className="student-reg-container">
+        <button onClick={() => navigate(-1)} className="back-button">Back</button>
         <h1>Registration form</h1>
         <p className="subtitle">
           Register to apply for jobs of your choice all over the world

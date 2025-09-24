@@ -18,9 +18,15 @@ const Navbar = () => {
   useEffect(() => {
     const fetchAdminDetails = async () => {
       const user = JSON.parse(localStorage.getItem('user'));
-      if (user && user.user_id) {
+      const token = localStorage.getItem('token'); // Get token
+
+      if (user && user.user_id && token) { // Check for token
         try {
-          const response = await fetch(`http://localhost:5000/api/admin/${user.user_id}`);
+          const response = await fetch(`http://localhost:5000/api/admin/${user.user_id}`, {
+            headers: {
+              'Authorization': `Bearer ${token}` // Add auth header
+            }
+          });
           const data = await response.json();
           if (data.success) {
             setUniversityName(data.data.universityName);

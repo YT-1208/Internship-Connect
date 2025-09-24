@@ -17,15 +17,11 @@ import GenerateStudentReport from './components/GenerateStudentReport'; // Impor
 import TermsAndConditions from './components/TermsAndConditions'; // Import the TermsAndConditions component
 import PrivacyPolicy from './components/PrivacyPolicy'; // Import the PrivacyPolicy component
 import EmployerRegistration from './components/EmployerRegistration'; // Import the EmployerRegistration component
-import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
 
-  //Google Client ID 
-  const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
   return (
-    <GoogleOAuthProvider clientId={googleClientId}>
     <Router>
       <div className="app">
         <Routes>
@@ -83,7 +79,6 @@ function App() {
         </Routes>
       </div>
     </Router>
-  </GoogleOAuthProvider>
   );
 }
 

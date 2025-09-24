@@ -24,17 +24,17 @@ const SystemAdminProfile = () => {
     const fetchAdminDetails = async () => {
       try {
         const user = JSON.parse(localStorage.getItem('user'));
-        console.log('User from localStorage:', user);
-        if (user && user.user_id) {
-          console.log('Fetching details for user ID:', user.user_id);
-          const response = await fetch(`http://localhost:5000/api/admin/${user.user_id}`);
-          console.log('Response from server:', response);
+        const token = localStorage.getItem('token'); // Get token from localStorage
+
+        if (user && user.user_id && token) {
+          const response = await fetch(`http://localhost:5000/api/admin/${user.user_id}`, {
+            headers: {
+              'Authorization': `Bearer ${token}` // Add Authorization header
+            }
+          });
           const data = await response.json();
-          console.log('Data from server:', data);
           if (data.success) {
-            console.log('Setting admin details:', data.data);
             setAdminDetails(data.data);
-            console.log('Fetched profileImage data:', data.data.profileImage);
             if (data.data.profileImage) {
               setPreviewImage(data.data.profileImage);
             }
@@ -81,8 +81,12 @@ const SystemAdminProfile = () => {
       }
 
       try {
+        const token = localStorage.getItem('token'); // Get token
         const response = await fetch(`http://localhost:5000/api/admin/${user.user_id}`, {
           method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}` // Add Authorization header
+          },
           body: formData,
         });
         const data = await response.json();
