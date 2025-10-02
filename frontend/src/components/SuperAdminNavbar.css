@@ -1,0 +1,88 @@
+.superadmin-navbar {
+  background-color: #6f42c1; /* Purple theme */
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.superadmin-navbar-brand a {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.superadmin-navbar-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.superadmin-navbar-nav .nav-item {
+  margin-left: 1.5rem;
+  position: relative;
+}
+
+.superadmin-navbar-nav .nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.superadmin-navbar-nav .nav-link:hover {
+  color: #e0e0e0;
+}
+
+.superadmin-navbar-nav .dropdown-toggle {
+  cursor: pointer;
+}
+
+.superadmin-navbar-nav .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  min-width: 150px;
+  z-index: 1000;
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  padding: 0.5rem 0;
+}
+
+.superadmin-navbar-nav .nav-item.dropdown:hover .dropdown-menu {
+  display: flex; /* Show on hover */
+}
+
+.superadmin-navbar-nav .dropdown-item {
+  padding: 0.75rem 1rem;
+  color: #333;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease;
+  border: none; /* For button */
+  background: none; /* For button */
+  width: 100%; /* For button */
+  text-align: left; /* For button */
+  cursor: pointer;
+}
+
+.superadmin-navbar-nav .dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+.superadmin-navbar-nav .logout-button {
+  color: #dc3545; /* Red for logout */
+}
+
+.superadmin-navbar-nav .logout-button:hover {
+  background-color: #f8d7da;
+}

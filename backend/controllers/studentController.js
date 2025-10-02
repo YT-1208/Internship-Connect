@@ -45,7 +45,7 @@ exports.register = async (req, res) => {
       [studentId, userId, universityId, matricNo, nameToRegister, program, mobileNumber]
     );
 
-    sendRegistrationEmail(emailToRegister, nameToRegister);
+    sendRegistrationEmail(emailToRegister, nameToRegister, 'student');
 
     res.status(201).json({ msg: 'Registration successful' });
   } catch (err) {

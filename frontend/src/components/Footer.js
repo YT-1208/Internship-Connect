@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  const role = user ? user.role : 'guest';
+
+  const aboutLink = role === 'employer' ? '/employer/about' : '/admin/about';
+  const contactLink = role === 'employer' ? '/employer/contact' : '/admin/contact';
+
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -14,8 +20,8 @@ const Footer = () => {
         </div>
         <div className="footer-links">
           <h4>Quick Link</h4>
-                      <Link to="/admin/about" className="footer-link">About</Link>
-                      <Link to="/admin/contact" className="footer-link">Contact</Link>        </div>
+                      <Link to={aboutLink} className="footer-link">About</Link>
+                      <Link to={contactLink} className="footer-link">Contact</Link>        </div>
         <div className="footer-logo">
           <img 
             src="/assets/internshipconnect_footer.png" 

@@ -64,7 +64,7 @@ const PaymentPage = () => {
           }
         };
 
-        const response = await fetch('http://localhost:5000/api/system-admin/confirm-payment', {
+        const response = await fetch('http://localhost:5000/api/admin/confirm-payment', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(paymentData)
@@ -78,7 +78,7 @@ const PaymentPage = () => {
         setPaymentStatus('Payment successful! Registering your account...');
 
         if (adminData) {
-          const registerResponse = await fetch('http://localhost:5000/api/system-admin/register', {
+          const registerResponse = await fetch('http://localhost:5000/api/admin/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(adminData)

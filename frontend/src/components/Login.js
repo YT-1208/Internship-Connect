@@ -125,6 +125,7 @@ const Login = () => {
           navigate('/');
       }
     } catch (err) {
+      console.error('Login request failed:', err);
       setError(err.response?.data?.msg || "Login failed. Please check your credentials.");
     }
   };
@@ -140,7 +141,7 @@ const Login = () => {
           {/* Error message display */}
           {error && <div className="error-message">{error}</div>}
 
-          <form onSubmit={handleRegularLogin} className="login-form">
+          <form onSubmit={(e) => { console.log('Form onSubmit triggered'); handleRegularLogin(e); }} className="login-form">
             <div className="form-group">
               <label>Username</label>
               <input
@@ -198,7 +199,6 @@ const Login = () => {
             buttonText="Continue with Google"
             className="google-login-button"
           />
-
           {/* Role Selection for Google Login */}
           {showRoleSelect && (
             <div className="role-selection">
@@ -222,7 +222,6 @@ const Login = () => {
               </button>
             </div>
           )}
-
           {/* Register Link (now links to RoleSelection) */}
           <div className="register-link">
             Don't have an account? <a href="/select-role" onClick={() => localStorage.removeItem('user')}>Register here</a>

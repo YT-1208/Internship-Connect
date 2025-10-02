@@ -17,6 +17,21 @@ import GenerateStudentReport from './components/GenerateStudentReport'; // Impor
 import TermsAndConditions from './components/TermsAndConditions'; // Import the TermsAndConditions component
 import PrivacyPolicy from './components/PrivacyPolicy'; // Import the PrivacyPolicy component
 import EmployerRegistration from './components/EmployerRegistration'; // Import the EmployerRegistration component
+import EmployerHome from './components/EmployerHome';
+import EmployerProfile from './components/EmployerProfile';
+import PostInternship from './components/PostInternship';
+import EmployerMyInternship from './components/EmployerMyInternship';
+import EmployerEditInternship from './components/EmployerEditInternship';
+import EmployerViewApplicant from './components/EmployerViewApplicant';
+import EmployerRoute from './components/EmployerRoute';
+import AboutSystemAdmin from './components/AboutSystemAdmin';
+import ContactSystemAdmin from './components/ContactSystemAdmin';
+import AboutEmployer from './components/AboutEmployer';
+import ContactEmployer from './components/ContactEmployer';
+import AdminViewAllInternships from './components/AdminViewAllInternships';
+import ViewEmployers from './components/ViewEmployers';
+import SystemAdminSubscription from './components/systemAdminSubscription';
+import SuperAdminHome from './components/SuperAdminHome';
 
 function App() {
 
@@ -52,17 +67,43 @@ function App() {
           {/* System Admin Profile Page */}
           <Route path="/admin/profile" element={<SystemAdminProfile />} />
 
+          {/* System Admin Subscription Page */}
+          <Route path="/admin/subscription" element={<SystemAdminSubscription />} />
+
+          {/* Super Admin Home Page */}
+          <Route path="/superadmin/home" element={<SuperAdminHome />} />
+
+          {/* Admin View All Internships Page */}
+          <Route path="/admin/view-all-internships" element={<AdminViewAllInternships />} />
+
+          {/* Manage Employers Page */}
+          <Route path="/admin/view-companies" element={<ViewEmployers />} />
+
           {/* About Page */}
-          <Route path="/admin/about" element={<About />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/admin/about" element={<AboutSystemAdmin />} />
+          <Route path="/employer/about" element={<AboutEmployer />} />
 
           {/* Contact Page */}
-          <Route path="/admin/contact" element={<Contact />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/admin/contact" element={<ContactSystemAdmin />} />
+          <Route path="/employer/contact" element={<ContactEmployer />} />
 
           {/* Manage Students Page */}
           <Route path="/admin/manage-students" element={<ManageStudents />} />
 
           {/* Generate Student Report Page */}
           <Route path="/admin/generate-student-report" element={<GenerateStudentReport />} />
+
+          {/* Employer Routes */}
+          <Route path='/employer' element={<EmployerRoute />}>
+            <Route path='dashboard' element={<EmployerHome />} />
+            <Route path='profile' element={<EmployerProfile />} />
+            <Route path='post-internship' element={<PostInternship />} />
+            <Route path='my-internship' element={<EmployerMyInternship />} />
+            <Route path='edit-internship/:internshipId' element={<EmployerEditInternship />} />
+            <Route path='view-applicants/:internshipId' element={<EmployerViewApplicant />} />
+          </Route>
 
           {/* Legal Pages */}
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />

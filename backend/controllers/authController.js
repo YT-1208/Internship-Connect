@@ -29,8 +29,17 @@ exports.login = async (req, res) => {
       return res.status(401).json({ msg: "Invalid credentials" });
     }
 
+    const tokenPayload = { id: user.user_id, role: user.role };
+
+    if (user.role === 'system admin') {
+      const [adminResult] = await db.query('SELECT university_id FROM system_admins WHERE user_id = ?', [user.user_id]);
+      if (adminResult.length > 0) {
+        tokenPayload.university_id = adminResult[0].university_id;
+      }
+    }
+
     const token = jwt.sign(
-      { id: user.user_id, role: user.role },
+      tokenPayload,
       process.env.JWT_SECRET,
       { expiresIn: '1d' }
     );
@@ -60,7 +69,8 @@ exports.googleLogin = async (req, res) => {
     const [result] = await db.query('SELECT * FROM users WHERE username = ?', [email]);
 
     if (result.length === 0) {
-      return res.json({ needsRegistration: true, email: email });
+        // User not found, needs to register
+        return res.json({ needsRegistration: true, email: email, googleCredential: credential });
     }
 
     const user = result[0];
@@ -76,7 +86,7 @@ exports.googleLogin = async (req, res) => {
 
     res.json({ token, user, needsRegistration: false });
   } catch (error) {
-    console.error('Google login error:', error);
+    console.error('Google login error details:', error);
     res.status(500).json({ msg: 'Invalid Google credential or server error' });
   }
 };

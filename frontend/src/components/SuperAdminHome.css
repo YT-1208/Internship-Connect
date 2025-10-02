@@ -1,0 +1,104 @@
+/* Basic layout for the SuperAdminHome page */
+.superadmin-home {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Hero Section Styling (similar to EmployerHome) */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 400px; /* Adjust height as needed */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.hero-background-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.hero-background-img.active {
+  opacity: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for text readability */
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+/* Super Admin Dashboard Section */
+.superadmin-dashboard-container {
+  flex-grow: 1;
+  padding: 2rem;
+  background-color: #f0f2f5; /* Light grey background */
+}
+
+.superadmin-dashboard-container .dashboard-section {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.superadmin-dashboard-container h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.superadmin-quick-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 1.5rem;
+}
+
+.quick-link-card {
+  background-color: #6f42c1; /* Purple theme */
+  color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.quick-link-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.quick-link-card h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.quick-link-card p {
+  font-size: 1rem;
+  opacity: 0.9;
+}

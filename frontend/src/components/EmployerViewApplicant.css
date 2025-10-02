@@ -1,0 +1,62 @@
+.view-applicant-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.view-applicant-container {
+  flex-grow: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.applicant-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 2rem;
+}
+
+.applicant-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.applicant-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.applicant-card h3 {
+  margin-top: 0;
+  color: #6c2bd9;
+}
+
+.applicant-card p {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.loading-container, .error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-size: 1.5rem;
+  color: #dc3545;
+}
+
+.view-applicant-container .back-button {
+  background-color: #6f42c1 !important;
+  border-color: #6f42c1 !important;
+  color: white !important;
+  display: block; /* Make it a block element to take full width */
+  width: fit-content; /* Adjust width to content */
+  margin: 20px auto 0 auto; /* Center the button and add top margin */
+}

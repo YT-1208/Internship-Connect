@@ -10,9 +10,9 @@ const protect = (req, res, next) => {
 
       // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      // Attach user to the request
+      console.log('Decoded JWT in protect middleware:', decoded);
       req.user = decoded;
+      console.log('req.user after decoding in protect middleware:', req.user);
       next();
     } catch (error) {
       console.error('Token verification failed:', error);
@@ -33,4 +33,12 @@ const admin = (req, res, next) => {
     }
 };
 
-module.exports = { protect, admin };
+const employer = (req, res, next) => {
+    if (req.user && req.user.role === 'employer') {
+        next();
+    } else {
+        res.status(403).json({ success: false, message: 'Not authorized as an employer' });
+    }
+};
+
+module.exports = { protect, admin, employer };

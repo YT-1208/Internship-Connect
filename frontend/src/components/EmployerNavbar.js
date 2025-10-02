@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
-const Navbar = () => {
-  const [universityName, setUniversityName] = useState('');
+const EmployerNavbar = () => {
+  const [companyName, setCompanyName] = useState('');
   const [profileImageUrl, setProfileImageUrl] = useState('');
   const navigate = useNavigate();
 
@@ -16,30 +16,32 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const fetchAdminDetails = async () => {
+    const fetchEmployerDetails = async () => {
       const user = JSON.parse(localStorage.getItem('user'));
-      const token = localStorage.getItem('token'); // Get token
+      const token = localStorage.getItem('token');
 
-      if (user && user.user_id && token) { // Check for token
+      if (user && user.user_id && token) {
         try {
-          const response = await fetch(`http://localhost:5000/api/admin/${user.user_id}`, {
+          const response = await fetch(`http://localhost:5000/api/employers/${user.user_id}`, {
             headers: {
-              'Authorization': `Bearer ${token}` // Add auth header
+              'Authorization': `Bearer ${token}`
             }
           });
+          console.log('EmployerNavbar: API Response Status', response.status);
           const data = await response.json();
+          console.log('EmployerNavbar: Fetched Data', data);
           if (data.success) {
-            setUniversityName(data.data.universityName);
+            setCompanyName(data.data.companyName);
             if (data.data.profileImage) {
               setProfileImageUrl(data.data.profileImage);
             }
           }
         } catch (error) {
-          console.error('Error fetching admin details:', error);
+          console.error('Error fetching employer details:', error);
         }
       }
     };
-    fetchAdminDetails();
+    fetchEmployerDetails();
   }, []);
 
   return (
@@ -53,17 +55,17 @@ const Navbar = () => {
         <span className="logo-text">INTERNSHIP CONNECT</span>
       </div>
       <div className="navbar-links">
-        <Link to="/admin/dashboard" className="nav-link">Home</Link>
-        <Link to="/admin/manage-students" className="nav-link">Manage Student</Link>
-        <Link to="/admin/view-companies" className="nav-link">View Company</Link>
+        <Link to="/employer/dashboard" className="nav-link">Home</Link>
+        <Link to="/employer/post-internship" className="nav-link">Post Internships</Link>
+        <Link to="/employer/my-internship" className="nav-link">My Internships</Link>
       </div>
       <div className="navbar-user">
         {profileImageUrl && <img src={profileImageUrl} alt="Profile" className="navbar-profile-img"/>}
-        <Link to="/admin/profile" className="welcome-text">Welcome, {universityName}</Link>
+        <Link to="/employer/profile" className="welcome-text">Welcome, {companyName}</Link>
         <button className="btn btn-primary" onClick={handleLogout}>Logout</button>
       </div>
     </nav>
   );
 };
 
-export default Navbar;
+export default EmployerNavbar;

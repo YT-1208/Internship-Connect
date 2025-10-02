@@ -12,20 +12,54 @@ const transporter = nodemailer.createTransport({
   debug: true // Enable debug output
 });
 
-const sendRegistrationEmail = async (toEmail, username) => {
-  const mailOptions = {
-    from: 'internshipconnect.noreply@gmail.com',
-    to: toEmail,
-    subject: 'Welcome to Internship Connect!',
-    html: `
+const sendRegistrationEmail = async (toEmail, username, role, invoiceDetails) => {
+  let subject;
+  let htmlContent;
+
+  if (role === 'employer') {
+    subject = 'Welcome to Internship Connect - Employer Account!';
+    htmlContent = `
+      <p>Dear ${username},</p>
+      <p>Welcome to Internship Connect! Your employer account has been successfully registered.</p>
+      <p>You can now post internship opportunities and connect with talented students.</p>
+      <p>Best regards,</p>
+      <p>The Internship Connect Team</p>
+    `;
+  } else if (role === 'system admin' && invoiceDetails) {
+    subject = 'Welcome to Internship Connect - System Admin Account and Invoice';
+    htmlContent = `
+      <p>Dear ${username},</p>
+      <p>Welcome to Internship Connect! Your system admin account has been successfully registered.</p>
+      <p>Please find your invoice details below:</p>
+      <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
+        <h3>Invoice</h3>
+        <p><strong>Name:</strong> ${invoiceDetails.name}</p>
+        <p><strong>Email:</strong> ${invoiceDetails.email}</p>
+        <p><strong>Amount Paid:</strong> RM${invoiceDetails.amount}</p>
+        <p><strong>Subscription Start Date:</strong> ${new Date(invoiceDetails.startDate).toLocaleDateString()}</p>
+        <p><strong>Subscription End Date:</strong> ${new Date(invoiceDetails.endDate).toLocaleDateString()}</p>
+      </div>
+      <p>Best regards,</p>
+      <p>The Internship Connect Team</p>
+    `;
+  } else {
+    // Default content for students/admins
+    subject = 'Welcome to Internship Connect!';
+    htmlContent = `
       <p>Dear ${username},</p>
       <p>Welcome to Internship Connect! We are excited to have you on board.</p>
       <p>You can now explore various internship opportunities and connect with top employers.</p>
       <p>Best regards,</p>
       <p>The Internship Connect Team</p>
-    `,
-  };
+    `;
+  }
 
+  const mailOptions = {
+    from: 'internshipconnect.noreply@gmail.com',
+    to: toEmail,
+    subject: subject,
+    html: htmlContent,
+  };
   try {
     console.log(`Attempting to send email to: ${toEmail} for user: ${username}`);
     let info = await transporter.sendMail(mailOptions);

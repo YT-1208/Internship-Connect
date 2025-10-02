@@ -1,0 +1,59 @@
+/* EmployerDetailsModal.css */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #333;
+}
+
+.employer-details h2 {
+    margin-top: 0;
+    color: #6c2bd9;
+    margin-bottom: 1.5rem;
+}
+
+.employer-details p {
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+}
+
+.employer-details strong {
+    color: #333;
+}
+
+.employer-profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 2px solid #eee;
+}

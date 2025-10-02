@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './SystemAdminHome.css'; // Import custom CSS
-import { Link, useNavigate } from 'react-router-dom'; // For navigation links
 import Footer from './Footer'; // Import the Footer component
-import './Button.css'; // Import the new button styles
 import Navbar from './Navbar'; // Import the Navbar component
+import AllInternshipDetails from './AllInternshipDetails';
 
-// Correctly reference images from the public folder by their path
 const images = [
   '/assets/heroillustration1.jpg',
   '/assets/heroillustration2.jpg',
@@ -13,44 +12,93 @@ const images = [
 ];
 
 const SystemAdminHome = () => {
-  const navigate = useNavigate();
-  const [internships, setInternships] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [allInternships, setAllInternships] = useState([]); 
+  const [loadingInternships, setLoadingInternships] = useState(true);
+  const [errorInternships, setErrorInternships] = useState(null);
+  const [selectedInternship, setSelectedInternship] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentImageIndex((prevIndex) =>
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000); // Change image every 3 seconds
+    }, 3000);
 
-    return () => clearInterval(timer); // Cleanup the interval on component unmount
-  }, []);
-
-  useEffect(() => {
-    const fetchInternships = async () => {
+    const fetchAllInternships = async () => {
       try {
-        const response = await fetch('/api/admin/internships'); // Assuming your backend is served from the same origin
+        const token = localStorage.getItem('token');
+        const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+        const response = await fetch('http://localhost:5000/api/admin/internships', { headers }); 
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
-        if (data.success) {
-          setInternships(data.data);
-        } else {
-          console.error('Failed to fetch internships:', data.message);
+        if (data.success && data.data) {
+          // Assuming data.data is an array of internships, each potentially with an applications array
+          setAllInternships(data.data);
         }
       } catch (error) {
-        console.error('Error fetching internships:', error);
+        console.error("Error fetching all internships:", error);
+        setErrorInternships(error);
+      } finally {
+        setLoadingInternships(false);
       }
     };
 
-    fetchInternships();
+    fetchAllInternships();
+
+    return () => clearInterval(timer);
   }, []);
+
+  const handleViewDetails = (internship) => {
+    setSelectedInternship(internship);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedInternship(null);
+  };
+
+  const handleViewAllInternships = () => {
+    navigate('/admin/view-all-internships');
+  };
+
+  const handleRemarkChange = (internshipId, applicationId, value) => {
+    setAllInternships(prevInternships =>
+      prevInternships.map(internship =>
+        internship.internship_id === internshipId
+          ? { ...internship, applications: internship.applications.map(app =>
+              app.id === applicationId ? { ...app, remark: value } : app
+            ) }
+          : internship
+      )
+    );
+  };
+
+  const handleSaveRemark = async (internshipId, applicationId, remark) => {
+    try {
+      const token = localStorage.getItem('token');
+      const headers = token ? { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
+      // Replace with your actual API endpoint for saving remarks
+      const response = await fetch(`http://localhost:5000/api/admin/opportunities/${internshipId}/applications/${applicationId}/remark`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ remark })
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      alert('Remark saved successfully!');
+    } catch (error) {
+      console.error("Error saving remark:", error);
+      alert('Failed to save remark.');
+    }
+  };
 
   return (
     <div className="system-admin-home">
-      {/* Navbar Section */}
       <Navbar />
-
-      {/* Hero Section */}
       <section className="hero">
         {images.map((image, index) => (
           <img
@@ -62,93 +110,79 @@ const SystemAdminHome = () => {
         ))}
         <div className="hero-content">
           <h1>Find an Internship that aligns with your field and skills</h1>
-          <p>Lists of opportunities in all the leading sector are waiting for you.</p>
-          <div className="search-bar">
-            <input 
-              type="text" 
-              placeholder="Job title, Keyword..." 
-              className="search-input" 
-            />
-            <input 
-              type="text" 
-              placeholder="Location" 
-              className="location-input" 
-            />
-            <button className="btn btn-primary">View</button>
-          </div>
-          <p className="suggestions">Suggestion: UI/UX Designer, Programing, Digital Marketing, Video, Animation.</p>
+          <p className="hero-description">Lists of opportunities in all the leading sector are waiting for you.</p>
         </div>
       </section>
 
-      {/* Featured Opportunities Section */}
       <section className="featured-opportunities">
-        <h2>Featured Opportunities</h2>
-        <p>Choose internships from the top employers and apply for the same.</p>
-        <div className="opportunities-grid">
-            {internships.length > 0 ? (
-              internships.map((internship) => (
+        <h2>All Internships</h2>
+        {loadingInternships ? (
+          <p>Loading internships...</p>
+        ) : errorInternships ? (
+          <p>Error loading internships: {errorInternships.message}</p>
+        ) : allInternships.length > 0 ? (
+          <>
+            <div className="opportunities-grid">
+              {allInternships.slice(0, 2).map((internship) => (
                 <div className="opportunity-card" key={internship.internship_id}>
-                  <h3>{internship.title}</h3>
-                  <span className="availability">{internship.status.toUpperCase()}</span>
-                  {/* Assuming salary is part of description or requirements for now, or needs to be added to DB */}
-                  <p className="salary">Salary: Not specified</p>
-                  <div className="company-info">
-                    {/* Placeholder for company logo - you might need to fetch this from the backend or have a default */}
-                    <img
-                      src="/assets/default-company-logo.png" // Placeholder
-                      alt={`${internship.companyName} Logo`}
-                      className="company-logo"
-                    />
-                    <p>{internship.companyName}</p>
-                    {/* Assuming location is part of description or requirements for now, or needs to be added to DB */}
-                    <p>Location: Not specified</p>
+                  <div className="opportunity-card-header">
+                    <h3 onClick={() => handleViewDetails(internship)}>{internship.title}</h3>
+                    {internship.profileImage && (
+                      <img src={internship.profileImage} alt={`${internship.companyName} Profile`} className="company-profile-img" />
+                    )}
                   </div>
-                  {/* Assuming applicants count is not directly available from internship table */}
-                  <p className="applicants">Applicants: N/A</p>
-                  <button className="view-details-btn">View details</button>
+                  <p>{internship.companyName}</p>
+                  <p>Salary: {internship.salary}</p>
+                  {internship.applications && internship.applications.length > 0 && (
+                    <div className="applications-list">
+                      <h4>Applications:</h4>
+                      {internship.applications.map(app => (
+                        <div key={app.id} className="application-item">
+                          <p>Student: {app.studentName} (University: {app.universityId})</p>
+                          <textarea
+                            placeholder="Add remark..."
+                            value={app.remark || ''}
+                            onChange={(e) => handleRemarkChange(internship.internship_id, app.id, e.target.value)}
+                          />
+                          <button
+                            onClick={() => handleSaveRemark(internship.internship_id, app.id, app.remark)}
+                          >Save Remark</button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <button className="view-more-btn" onClick={() => handleViewDetails(internship)}>View Details</button>
                 </div>
-              ))
-            ) : (
-              <p>No featured opportunities available at the moment.</p>
-            )}
-          </div>
-        <Link to="/admin/all-opportunities" className="view-all-link">View all</Link>
+              ))}
+            </div>
+            <button className="view-more-btn" onClick={handleViewAllInternships}>View All Internships</button>
+          </>
+        ) : (
+          <p>No internships available at the moment.</p>
+        )}
       </section>
 
-      {/* Top Companies Section */}
       <section className="top-companies">
         <h3>Top companies hiring now</h3>
         <div className="companies-grid">
-          <img 
-            src="/assets/htmPharmacy_logo.png" 
-            alt="HTM Pharmacy Logo" 
-            className="company-logo" 
-          />
-          <img 
-            src="/assets/carsem_logo.png" 
-            alt="Carsem Logo" 
-            className="company-logo" 
-          />
-          <img 
-            src="/assets/keeming_logo.png" 
-            alt="Kee Ming Logo" 
-            className="company-logo" 
-          />
-          <img 
-            src="/assets/travelodge_logo.png" 
-            alt="Travelodge Logo" 
-            className="company-logo" 
-          />
-          <img 
-            src="/assets/topGlove_logo.png" 
-            alt="Top Glove Logo" 
-            className="company-logo" 
-          />
+          <img src="/assets/htmPharmacy_logo.png" alt="HTM Pharmacy Logo" className="company-logo" />
+          <img src="/assets/carsem_logo.png" alt="Carsem Logo" className="company-logo" />
+          <img src="/assets/keeming_logo.png" alt="Kee Ming Logo" className="company-logo" />
+          <img src="/assets/travelodge_logo.png" alt="Travelodge Logo" className="company-logo" />
+          <img src="/assets/topGlove_logo.png" alt="Top Glove Logo" className="company-logo" />
         </div>
       </section>
 
-      {/* Footer Section */}
+
+
       <Footer />
+
+      {selectedInternship && (
+        <AllInternshipDetails
+            internship={selectedInternship}
+            onClose={handleCloseModal}
+        />
+      )}
     </div>
   );
 };

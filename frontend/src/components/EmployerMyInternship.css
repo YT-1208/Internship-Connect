@@ -1,0 +1,63 @@
+.my-internships-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.my-internships-container {
+    padding: 20px;
+    background-color: #f0f2f5; /* Matched with EmployerHome */
+    min-height: calc(100vh - 60px); /* Adjust based on your navbar height */
+}
+
+.my-internships-container h2 {
+  color: #333; /* Matched with EmployerHome */
+}
+
+.loading-container, .error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-size: 1.5rem;
+}
+
+.internships-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+.internships-table th, .internships-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.internships-table th {
+  background-color: #f2f2f2; /* Matched with EmployerHome */
+  color: #333; /* Matched with EmployerHome */
+}
+
+.internships-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Matched with EmployerHome */
+}
+
+.internships-table tbody tr:hover {
+  background-color: #f1f1f1; /* Matched with EmployerHome */
+}
+
+.internships-table .btn-primary {
+  background-color: #6f42c1 !important;
+  border-color: #6f42c1 !important;
+}
+
+.internships-table .btn-secondary {
+  background-color: #6f42c1 !important;
+  border-color: #6f42c1 !important;
+}
+
+.internships-table .btn-danger {
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+}

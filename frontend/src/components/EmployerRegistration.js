@@ -1,17 +1,43 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './EmployerRegistration.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 const EmployerRegistration = () => {
-    const [companyName, setCompanyName] = useState('');
-    const [companyEmail, setCompanyEmail] = useState('');
-    const [companyPhone, setCompanyPhone] = useState('');
-    const [password, setPassword] = useState('');
+    const [formData, setFormData] = useState({
+        companyName: '',
+        companyEmail: '',
+        companyPhone: '',
+        password: '',
+        companyIdNumber: '',
+        fromGoogle: false,
+        googleCredential: null,
+    });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.state?.googleCredential) {
+            const { googleCredential } = location.state;
+            const decodedToken = jwtDecode(googleCredential);
+            setFormData(prev => ({
+                ...prev,
+                companyEmail: decodedToken.email,
+                companyName: decodedToken.name, // Pre-fill company name from Google name
+                fromGoogle: true,
+                googleCredential,
+            }));
+        }
+    }, [location.state]);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
     const handleManualRegister = async (e) => {
         e.preventDefault();
@@ -19,12 +45,7 @@ const EmployerRegistration = () => {
         setSuccess('');
 
         try {
-            const res = await axios.post('/api/employers/register', { 
-                companyName, 
-                companyEmail, 
-                companyPhone, 
-                password 
-            });
+            const res = await axios.post('/api/employers/register', formData);
             setSuccess(res.data.message);
             alert('Registration successful! You can now log in.');
             navigate('/login');
@@ -49,8 +70,9 @@ const EmployerRegistration = () => {
                         <input 
                             type="text" 
                             id="companyName" 
-                            value={companyName} 
-                            onChange={(e) => setCompanyName(e.target.value)} 
+                            name="companyName"
+                            value={formData.companyName} 
+                            onChange={handleChange} 
                             required 
                         />
                     </div>
@@ -59,9 +81,25 @@ const EmployerRegistration = () => {
                         <input 
                             type="email" 
                             id="companyEmail" 
-                            value={companyEmail} 
-                            onChange={(e) => setCompanyEmail(e.target.value)} 
+                            name="companyEmail"
+                            value={formData.companyEmail} 
+                            onChange={handleChange} 
                             required 
+                            readOnly={formData.fromGoogle}
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="companyIdNumber">Company ID (12 Digits)</label>
+                        <input 
+                            type="text" 
+                            id="companyIdNumber" 
+                            name="companyIdNumber"
+                            value={formData.companyIdNumber} 
+                            onChange={handleChange} 
+                            required 
+                            pattern="[0-9]{12}"
+                            title="Company ID must be exactly 12 digits."
+                            maxLength="12"
                         />
                     </div>
                     <div className="input-group">
@@ -69,8 +107,9 @@ const EmployerRegistration = () => {
                         <input 
                             type="tel" 
                             id="companyPhone" 
-                            value={companyPhone} 
-                            onChange={(e) => setCompanyPhone(e.target.value)} 
+                            name="companyPhone"
+                            value={formData.companyPhone} 
+                            onChange={handleChange} 
                             required 
                         />
                     </div>
@@ -79,8 +118,9 @@ const EmployerRegistration = () => {
                         <input 
                             type="password" 
                             id="password" 
-                            value={password} 
-                            onChange={(e) => setPassword(e.target.value)} 
+                            name="password"
+                            value={formData.password} 
+                            onChange={handleChange} 
                             required 
                         />
                     </div>

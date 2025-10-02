@@ -1,0 +1,118 @@
+/* ViewEmployers.css */
+
+.manage-employers-page {
+    background-color: #fff; /* Set a base background color */
+}
+
+.manage-employers-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+/* Employers Intro Section - Centered */
+.employers-intro {
+    text-align: center; /* Center align all content */
+    padding: 2rem;
+    background-color: #f8f0ff; /* Homepage theme color */
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.admin-logo {
+    max-height: 100px;
+    margin-bottom: 1rem;
+}
+
+.employers-intro h2 {
+    margin-bottom: 0.5rem;
+}
+
+.employers-intro p {
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto; /* Center the paragraph text block */
+}
+
+/* Employer List Sections */
+.employers-list-section {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.employers-list-section h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #f0e8ff;
+    padding-bottom: 0.5rem;
+}
+
+.employers-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.employers-table th, .employers-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.employers-table th {
+    background-color: #f8f0ff; /* Homepage theme color */
+}
+
+.employers-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Button Styles */
+.employers-table .btn {
+    margin-right: 8px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+}
+
+.verify-btn {
+    background-color: #28a745 !important; /* Green */
+    border-color: #28a745 !important;
+    color: #fff !important;
+}
+
+.verify-btn:hover {
+    background-color: #218838 !important;
+    border-color: #1e7e34 !important;
+}
+
+.remove-btn {
+    background-color: #dc3545 !important; /* Red */
+    border-color: #dc3545 !important;
+    color: #fff !important;
+}
+
+.remove-btn:hover {
+    background-color: #c82333 !important;
+    border-color: #bd2130 !important;
+}
+
+.view-btn {
+    background-color: #6c2bd9 !important; /* Purple theme color */
+    border-color: #6c2bd9 !important;
+    color: #fff !important;
+}
+
+.view-btn:hover {
+    background-color: #5a23b1 !important;
+    border-color: #5320a2 !important;
+}
+
+.loading-container, .error-container {
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.2rem;
+}

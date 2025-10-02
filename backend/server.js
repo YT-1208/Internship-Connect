@@ -6,6 +6,7 @@ const studentRoutes = require('./routes/students');
 const systemAdminRoutes = require('./routes/systemAdmin');
 const contactRoutes = require('./routes/contact'); // Import the contact route
 const employerRoutes = require('./routes/employer'); // Import the employer route
+const internshipRoutes = require('./routes/internships');
 require('dotenv').config();
 
 // Initialize app
@@ -16,10 +17,10 @@ app.use(express.json());
 
 // CORS Configuration (critical for frontend-backend communication)
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: '*' , // Temporarily allow all origins for debugging
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  credentials: false // Temporarily set to false for debugging
 }));
 
 // Test route
@@ -33,6 +34,7 @@ app.use('/api/students', studentRoutes);
 app.use('/api/admin', systemAdminRoutes);
 app.use('/api/contact', contactRoutes); // Use the contact route
 app.use('/api/employers', employerRoutes); // Use the employer route
+app.use('/api/internships', internshipRoutes);
 
 // Database connection test
 const testDbConnection = async () => {

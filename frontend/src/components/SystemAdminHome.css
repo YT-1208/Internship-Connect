@@ -7,49 +7,42 @@
 
 /* Hero Section Styles */
 .hero {
-  position: relative; /* Needed for background and content positioning */
-  display: flex;
-  justify-content: center; /* Center content horizontally */
-  align-items: center;
-  padding: 4rem;
-  text-align: center;
-  overflow: hidden; /* Ensures images don't bleed out */
-  min-height: 400px; /* Give the hero section a good height */
-}
-
-/* Add a dark overlay for text readability */
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1; /* Overlay should be above images but below content */
+    position: relative;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+    z-index: 0; /* Ensure hero is a stacking context */
 }
 
 .hero-background-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Cover the entire area without distortion */
-  z-index: 0; /* Background images are at the very back */
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    z-index: -1;
 }
 
 .hero-background-img.active {
-  opacity: 1;
+    opacity: 1;
 }
 
 .hero-content {
-  position: relative; /* Ensure content is on top of the overlay */
-  z-index: 2;
-  flex: 1;
-  max-width: 800px; /* Control the max width of the content */
+    z-index: 1; /* Ensure content is above background image */
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.hero-description {
+    color: white;
 }
 
 .hero-content h1 {
@@ -59,60 +52,26 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow */
 }
 
-.hero-content p {
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-  color: #f0f0f0; /* Lighter text color */
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Add text shadow */
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
 }
 
-.search-bar {
-  display: flex;
-  justify-content: center; /* Center the search bar */
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.search-input,
-.location-input {
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-right: 0.5rem;
-  width: 220px; /* Slightly wider search inputs */
-}
-
-.suggestions {
-  font-size: 0.9rem;
-  color: #ddd; /* Lighter suggestion text */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-/* Remove the old illustration styles */
-
-/* Featured Opportunities Styles */
+/* Featured Opportunities Section */
 .featured-opportunities {
-  padding: 2rem 4rem;
+  padding: 2rem;
   text-align: center;
 }
 
 .featured-opportunities h2 {
   font-size: 2rem;
-  margin-bottom: 0.5rem;
-  color: #333;
-}
-
-.featured-opportunities p {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .opportunities-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
 
 .opportunity-card {
@@ -126,68 +85,149 @@
 .opportunity-card h3 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #333;
+  cursor: pointer;
 }
 
-.availability {
-  display: inline-block;
-  background-color: #5cb85c;
-  color: #fff;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
+.opportunity-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 0.5rem;
 }
 
-.salary {
+.company-profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 10px; /* Add some margin to separate from title */
+}
+
+.opportunity-card p {
+  margin-bottom: 1rem;
+}
+
+
+
+.applications-list {
+  margin-top: 1rem;
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+}
+
+.application-item {
+  background-color: #fff;
+  padding: 0.8rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.application-item p {
+  margin-bottom: 0.5rem;
   font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 1rem;
 }
 
-.company-info {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
+.application-item textarea {
+  width: 100%;
+  min-height: 60px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  resize: vertical;
 }
 
-.company-logo {
-  height: 30px;
-  margin-right: 10px;
+.application-item button {
+  background-color: #28a745;
+  margin-left: 0.5rem;
 }
 
-.applicants {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 1rem;
+.application-item button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
-.view-all-link {
-  color: #6c2bd9;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-/* Top Companies Styles */
+/* Top Companies Section */
 .top-companies {
-  padding: 2rem 4rem;
-  text-align: center;
+    padding: 2rem;
+    text-align: center;
+    background-color: #f8f0ff;
 }
 
 .top-companies h3 {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .companies-grid {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
 }
 
 .company-logo {
-  height: 80px;
-  margin: 0 1rem;
+    height: 60px;
+    max-width: 150px;
+    object-fit: contain;
+}
+
+.view-more-btn {
+  background-color: #6c2bd9;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.view-more-btn:hover {
+  background-color: #5a22b3;
+  border-color: #5a22b3;
+}
+
+/* Admin Management Links Section */
+.admin-management-links {
+  padding: 2rem;
+  text-align: center;
+  background-color: #f0f0f0; /* Light grey background */
+  margin-top: 2rem;
+  border-radius: 8px;
+}
+
+.admin-management-links h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.management-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* Space between buttons */
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+.management-buttons .btn {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.management-buttons .btn-primary {
+  background-color: #6c2bd9; /* Purple theme color */
+  color: white;
+  border: 1px solid #6c2bd9;
+}
+
+.management-buttons .btn-primary:hover {
+  background-color: #5a22b3;
+  border-color: #5a22b3;
 }

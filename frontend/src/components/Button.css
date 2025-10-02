@@ -19,6 +19,16 @@
   color: #fff;
 }
 
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
 .btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
